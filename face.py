@@ -1,6 +1,6 @@
 """open cv face detection implemenation."""
 import cv2
-PATH = 'tony_stark.jpg'
+PATH = 'family.jpg'
 
 
 def grayscale(image_path):
@@ -16,9 +16,8 @@ def load_classifierToDetectFace(gray_image):
     # checking the classifier load is successful or not
     test = face_cascade.load('haarcascade_frontalface_default.xml')
     if test is True:
-        find_face = face_cascade.detectMultiScale(gray_image, scaleFactor=1.1,
+        find_face = face_cascade.detectMultiScale(gray_image, scaleFactor=1.2,
                                                   minNeighbors=5)
-        print(type(find_face))
         print('Faces found: ', len(find_face))
         if len(find_face) > 0:
             for (x, y, w, h) in find_face:
