@@ -1,6 +1,6 @@
-"""open cv face detection implemenation."""
+"""open cv face detection implemenation using Haar Classifer."""
 import cv2
-PATH = 'family.jpg'
+PATH = 'thor.jpg'
 
 
 def grayscale(image_path):
