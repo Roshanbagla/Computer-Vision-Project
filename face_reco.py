@@ -3,6 +3,8 @@ import os
 import cv2
 import numpy as np
 
+subjects = ["", "Elvis Presley", "Roshan Wagle", "Ramiz"]
+
 
 def load_classifierToDetectFace(image):
     """Loading a classifier."""
@@ -51,6 +53,8 @@ def training_data(folder_path):
             if face is not None:
                 faces.append(face)
                 labels.append(label)
+            else:
+                continue
             cv2.destroyAllWindows()
             cv2.waitKey(1)
             cv2.destroyAllWindows()
@@ -64,9 +68,45 @@ print("Total faces: ", len(faces))
 print("Total labels: ", len(labels))
 
 """Create a Face Recognizer. """
-face_recognizer = cv2.face.createLBPHFaceREcognizer()
+face_recognizer = cv2.face.LBPHFaceRecognizer_create()
 
 # train a face Recognizer
 face_recognizer.train(faces, np.array(labels))
 
+
 def rectangle(img, rect):
+    (x, y, w, h) = rect
+    cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
+
+
+def text_on_pic(img, text, x, y):
+    cv2.putText(img, text, (x, y), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+
+
+def predict(test_image):
+    copy_image = test_image.copy()
+    face, rect = load_classifierToDetectFace(copy_image)
+    label = face_recognizer.predict(face)
+    text_label = subjects[label[0]]
+    rectangle(copy_image, rect)
+    text_on_pic(copy_image, text_label, rect[0], rect[1]-5)
+    return copy_image
+
+
+print(" predicting images")
+test_image1 = cv2.imread("test-data/test1.jpg")
+test_image2 = cv2.imread("test-data/test2.jpg")
+test_image3 = cv2.imread("test-data/test3.jpg")
+
+
+predicted_image1 = predict(test_image1)
+predicted_image2 = predict(test_image2)
+predicted_image3 = predict(test_image3)
+print("prediction complete")
+
+# display the images
+cv2.imshow(subjects[1], predicted_image1)
+cv2.imshow(subjects[2], predicted_image2)
+cv2.imshow(subjects[3], predicted_image3)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
