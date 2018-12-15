@@ -12,4 +12,6 @@ MTCNN algirithm is really good algorithm that do real time face detection at dif
 
 <img width="270" alt="image" src="https://user-images.githubusercontent.com/34045871/50037597-c5627280-005e-11e9-8d86-92b855c4f0b8.png">
 
+2. A person sittng at distant and not even looking at a Camera. Still the face is detected along with different landmarks such as eyes, nose and lips.
+
 <img width="172" alt="image" src="https://user-images.githubusercontent.com/34045871/50037606-e034e700-005e-11e9-857c-c045e82e6f78.png">
